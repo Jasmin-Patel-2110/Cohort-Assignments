@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kan-Ban Board</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- To Do board -->
+      <div id="todo-board" class="board">
+        <div class="board-header">
+          <h4>To Do</h4>
+          <!-- <div class="task-count">02</div> -->
+        </div>
+        <div class="board-items">
+          <p draggable="true" class="board-item">Learn React</p>
+          <p draggable="true" class="board-item">Learn Node</p>
+        </div>
+      </div>
+
+      <!-- inprogress board -->
+      <div id="inprogress-board" class="board">
+        <div class="board-header">
+          <h4>In Progress</h4>
+        </div>
+        <div class="board-items">
+          <p draggable="true" class="board-item">Learn JS</p>
+        </div>
+      </div>
+
+      <!-- done board -->
+      <div id="done-board" class="board">
+        <div class="board-header">
+          <h4>Done</h4>
+        </div>
+        <div class="board-items">
+          <p draggable="true" class="board-item">Learn ML</p>
+          <p draggable="true" class="board-item">Learn Python</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-class-btn">Add Task</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
