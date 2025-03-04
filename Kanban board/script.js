@@ -7,41 +7,17 @@ const dropBoardList = document.querySelectorAll(".board-items");
 let draggedElement = null;
 let dropBoard = null;
 
-// console.log(typeof taskList[0]);
-// console.log(dropBoardList);
-
 addClassBtn.addEventListener("click", (e) => {
   // <p draggable="true" class="board-item"></p>
+  const innerText = prompt("Enter the task.");
 
-  console.log(e);
+  if (!innerText) return;
 
-  const taskString = prompt("Enter the task.");
-
-  if (!taskString) return;
-
-  const task = document.createElement("p");
-  task.className = "board-item";
-  task.setAttribute("draggable", "true");
-  task.innerHTML = taskString;
-
-  todoBoardItems.append(task);
-
-  // taskList = document.querySelectorAll(".board-item");
-  // console.log(taskList);
+  todoBoardItems.append(createTaskElement(innerText));
 });
 
 taskList.forEach((val, key) => {
-  val.addEventListener("dragstart", (e) => {
-    draggedElement = e.target;
-    // console.log(draggedElement);
-  });
-  val.addEventListener("dragend", (e) => {
-    dropBoard.appendChild(draggedElement);
-    draggedElement = null;
-  });
-  // val.addEventListener("dragover", (e) => {
-  //   e.preventDefault();
-  // });
+  addDragEvents(val);
 });
 
 dropBoardList.forEach((val, key) => {
@@ -49,7 +25,29 @@ dropBoardList.forEach((val, key) => {
     if (e.target.className === "board-items") {
       dropBoard = e.target;
     }
-    // console.log(e);
-    // console.log(dropBoard);
   });
 });
+
+function createTaskElement(innerText) {
+  const task = document.createElement("p");
+  task.className = "board-item";
+  task.setAttribute("draggable", "true");
+  task.innerHTML = innerText;
+
+  addDragEvents(task);
+
+  return task;
+}
+
+function addDragEvents(element) {
+  element.addEventListener("dragstart", (e) => {
+    draggedElement = e.target;
+    draggedElement.classList.add("dragging");
+  });
+
+  element.addEventListener("dragend", (e) => {
+    dropBoard.appendChild(draggedElement);
+    draggedElement.classList.remove("dragging");
+    draggedElement = null;
+  });
+}

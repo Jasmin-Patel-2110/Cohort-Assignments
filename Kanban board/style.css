@@ -69,3 +69,12 @@ body {
 .add-class-btn:hover {
   background-color: #333333;
 }
+
+.dragging {
+  opacity: 30%;
+}
+
+.edit-task,
+.delete-task {
+  
+}
