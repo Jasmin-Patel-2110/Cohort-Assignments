@@ -14,9 +14,17 @@
           <h4>To Do</h4>
           <!-- <div class="task-count">02</div> -->
         </div>
-        <div class="board-items">
-          <p draggable="true" class="board-item">Learn React</p>
-          <p draggable="true" class="board-item">Learn Node</p>
+        <div class="task-list">
+          <p draggable="true" class="board-item">
+            <span class="task-text">Learn backend</span>
+            <span class="edit-task fa-solid fa-pen-to-square"> </span>
+            <span class="delete-task fa-solid fa-trash"> </span>
+          </p>
+          <p draggable="true" class="board-item">
+            <span class="task-text">Learn node</span>
+            <span class="edit-task fa-solid fa-pen-to-square"> </span>
+            <span class="delete-task fa-solid fa-trash"> </span>
+          </p>
         </div>
       </div>
 
@@ -25,8 +33,12 @@
         <div class="board-header">
           <h4>In Progress</h4>
         </div>
-        <div class="board-items">
-          <p draggable="true" class="board-item">Learn JS</p>
+        <div class="task-list">
+          <p draggable="true" class="board-item">
+            <span class="task-text">Learn react</span>
+            <span class="edit-task fa-solid fa-pen-to-square"> </span>
+            <span class="delete-task fa-solid fa-trash"> </span>
+          </p>
         </div>
       </div>
 
@@ -35,13 +47,17 @@
         <div class="board-header">
           <h4>Done</h4>
         </div>
-        <div class="board-items">
+        <div class="task-list">
           <p draggable="true" class="board-item">
-            Learn ML
-            <span class="edit-task">E</span>
-            <span class="delete-task">D</span>
+            <span class="task-text">Learn JS</span>
+            <span class="edit-task fa-solid fa-pen-to-square"> </span>
+            <span class="delete-task fa-solid fa-trash"> </span>
           </p>
-          <p draggable="true" class="board-item">Learn Python</p>
+          <p draggable="true" class="board-item">
+            <span class="task-text">Learn ML</span>
+            <span class="edit-task fa-solid fa-pen-to-square"> </span>
+            <span class="delete-task fa-solid fa-trash"> </span>
+          </p>
         </div>
       </div>
     </div>
@@ -49,4 +65,8 @@
     <button class="add-class-btn">Add Task</button>
   </body>
   <script src="script.js"></script>
+  <script
+    src="https://kit.fontawesome.com/4c50c2b5f9.js"
+    crossorigin="anonymous"
+  ></script>
 </html>
