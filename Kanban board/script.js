@@ -1,4 +1,4 @@
-const addClassBtn = document.querySelector(".add-class-btn");
+const addClassBtn = document.querySelector(".add-task-btn");
 // const todoBoardItems = document.querySelector("#todo-board > .task-list");
 let taskList = document.querySelectorAll(".board-item");
 const dropBoardList = document.querySelectorAll(".task-list");
@@ -81,6 +81,35 @@ function addDropEvent(board) {
   });
 }
 
+// add new board
+const addBoardBtn = document.querySelector(".add-board-btn");
+
+addBoardBtn.addEventListener("click", (e) => {
+  const boardName = prompt("Enter board name.");
+
+  if (!boardName) return;
+
+  const newBoard = document.createElement("div");
+  newBoard.classList.add("board");
+  newBoard.innerHTML = `<div class="board-header">
+          <h4>${boardName}</h4>
+          <div class="board-header-util">
+            <span class="fa-solid fa-pen-to-square"></span>
+            <span class="fa-solid fa-trash"></span>
+          </div>
+        </div>
+        <div class="task-list">
+        </div>`;
+
+  addDropEvent(newBoard.querySelector(".task-list"));
+  addBoardEditEvent(newBoard.querySelector(".fa-pen-to-square"));
+  addBoardDeleteEvent(newBoard.querySelector(".fa-trash"));
+
+  document.querySelector(".container").append(newBoard);
+
+  updateLists();
+});
+
 // edit task
 let editTaskBtn = document.querySelectorAll(".edit-task");
 editTaskBtn.forEach(addEditEvent);
@@ -122,13 +151,7 @@ function addBoardDeleteEvent(btn) {
   btn.addEventListener("click", function (e) {
     this.parentElement.parentElement.parentElement.remove();
 
-    reassignLists();
-
-    console.log(boardDeleteBtn);
-    console.log(boardEditBtn);
-    console.log(boards);
-    console.log(editTaskBtn);
-    console.log(deleteTaskBtnList);
+    updateLists();
   });
 }
 
@@ -142,7 +165,8 @@ function addBoardEditEvent(btn) {
   });
 }
 
-function reassignLists() {
+// updating lists
+function updateLists() {
   boards = document.querySelectorAll(".board"); // updating boards list
   boardDeleteBtn = document.querySelectorAll(".board-header-util > .fa-trash"); // updating boardDeleteBtn list
   boardEditBtn = document.querySelectorAll(
