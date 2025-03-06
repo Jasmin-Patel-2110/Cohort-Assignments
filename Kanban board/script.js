@@ -21,6 +21,9 @@ addClassBtn.addEventListener("click", (e) => {
   }
 
   boards[0].querySelector(".task-list").append(createTaskElement(taskText));
+  updateLists();
+
+  updateTaskCount();
 });
 
 // create task element function
@@ -64,6 +67,9 @@ function addDragEvents(element) {
       draggedElement.classList.remove("dragging");
       // draggedElement.style.cursor = "grab";
       dropBoard.appendChild(draggedElement);
+
+      updateLists();
+      updateTaskCount();
     } catch (e) {
     } finally {
       draggedElement = null;
@@ -94,6 +100,7 @@ addBoardBtn.addEventListener("click", (e) => {
   newBoard.innerHTML = `<div class="board-header">
           <h4>${boardName}</h4>
           <div class="board-header-util">
+            <span class="board-task-count">00</span>
             <span class="fa-solid fa-pen-to-square"></span>
             <span class="fa-solid fa-trash"></span>
           </div>
@@ -122,6 +129,9 @@ deleteTaskBtnList.forEach(addDeleteEvent);
 function addDeleteEvent(btn) {
   btn.addEventListener("click", function (e) {
     this.parentElement.parentElement.remove();
+
+    updateLists();
+    updateTaskCount();
   });
 }
 
@@ -166,6 +176,20 @@ function addBoardEditEvent(btn) {
 }
 
 // updating lists
+
+// update board task count
+let boardTaskCount = document.querySelectorAll(".board-task-count");
+
+updateTaskCount();
+
+function updateTaskCount() {
+  boardTaskCount.forEach((counter, key) => {
+    counter.innerHTML = String(
+      boards[key].querySelectorAll(".board-item").length
+    ).padStart(2, "0");
+  });
+}
+
 function updateLists() {
   boards = document.querySelectorAll(".board"); // updating boards list
   boardDeleteBtn = document.querySelectorAll(".board-header-util > .fa-trash"); // updating boardDeleteBtn list
@@ -175,4 +199,6 @@ function updateLists() {
 
   editTaskBtn = document.querySelectorAll(".edit-task");
   deleteTaskBtnList = document.querySelectorAll(".delete-task");
+
+  boardTaskCount = document.querySelectorAll(".board-task-count");
 }
