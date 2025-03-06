@@ -1,12 +1,10 @@
+// select needed elements
 const addClassBtn = document.querySelector(".add-task-btn");
-// const todoBoardItems = document.querySelector("#todo-board > .task-list");
 let taskList = document.querySelectorAll(".board-item");
-const dropBoardList = document.querySelectorAll(".task-list");
+let boards = document.querySelectorAll(".board");
 
 let draggedElement = null;
 let dropBoard = null;
-
-let boards = document.querySelectorAll(".board");
 
 // add task button
 addClassBtn.addEventListener("click", (e) => {
@@ -21,12 +19,12 @@ addClassBtn.addEventListener("click", (e) => {
   }
 
   boards[0].querySelector(".task-list").append(createTaskElement(taskText));
-  updateLists();
 
-  updateTaskCount();
+  updateLists(); // update different lists
+  updateTaskCount(); // update task counter of every board.
 });
 
-// create task element function
+// create task, add events to it and return task
 function createTaskElement(taskText) {
   const task = document.createElement("p");
   task.className = "board-item";
@@ -45,24 +43,24 @@ function createTaskElement(taskText) {
 }
 
 // applying drag events to every task.
-taskList.forEach((val, key) => {
-  addDragEvents(val);
+taskList.forEach((task, key) => {
+  addDragEvents(task);
 });
 
-// applying drop events to every board.
-dropBoardList.forEach((val, key) => {
-  addDropEvent(val);
+// applying drop events to every board's drop area.
+boards.forEach((board, key) => {
+  addDropEvent(board.querySelector(".task-list"));
 });
 
-// Adds a dragstart and dragend event listeners to tasks to select and append a task to the selected drop board.
-function addDragEvents(element) {
-  element.addEventListener("dragstart", (e) => {
+// Adds a dragstart and dragend events to task
+function addDragEvents(task) {
+  task.addEventListener("dragstart", (e) => {
     draggedElement = e.target;
     draggedElement.classList.add("dragging");
     // draggedElement.style.cursor = "grabbing";
   });
 
-  element.addEventListener("dragend", (e) => {
+  task.addEventListener("dragend", (e) => {
     try {
       draggedElement.classList.remove("dragging");
       // draggedElement.style.cursor = "grab";
@@ -71,6 +69,7 @@ function addDragEvents(element) {
       updateLists();
       updateTaskCount();
     } catch (e) {
+      console.log(e);
     } finally {
       draggedElement = null;
       dropBoard = null;
@@ -87,9 +86,10 @@ function addDropEvent(board) {
   });
 }
 
-// add new board
+// select add board button
 const addBoardBtn = document.querySelector(".add-board-btn");
 
+// add new board
 addBoardBtn.addEventListener("click", (e) => {
   const boardName = prompt("Enter board name.");
 
@@ -114,7 +114,7 @@ addBoardBtn.addEventListener("click", (e) => {
 
   document.querySelector(".container").append(newBoard);
 
-  updateLists();
+  updateLists(); // update different lists
 });
 
 // edit task
@@ -124,16 +124,6 @@ editTaskBtn.forEach(addEditEvent);
 // delete task
 let deleteTaskBtnList = document.querySelectorAll(".delete-task");
 deleteTaskBtnList.forEach(addDeleteEvent);
-
-// Adds a click event listener to a button to delete task.
-function addDeleteEvent(btn) {
-  btn.addEventListener("click", function (e) {
-    this.parentElement.parentElement.remove();
-
-    updateLists();
-    updateTaskCount();
-  });
-}
 
 // Adds a click event listener to a button to edit task.
 function addEditEvent(btn) {
@@ -146,7 +136,17 @@ function addEditEvent(btn) {
   });
 }
 
-// selecting board edit and delete button
+// Adds a click event listener to a button to delete task.
+function addDeleteEvent(btn) {
+  btn.addEventListener("click", function (e) {
+    this.parentElement.parentElement.remove(); // select and remove task.
+
+    updateLists();
+    updateTaskCount();
+  });
+}
+
+// selecting board edit and delete buttons
 let boardDeleteBtn = document.querySelectorAll(
   ".board-header-util > .fa-trash"
 );
@@ -154,7 +154,7 @@ let boardEditBtn = document.querySelectorAll(
   ".board-header-util > .fa-pen-to-square"
 );
 
-// board delete
+// Add delete board event to every board delete button.
 boardDeleteBtn.forEach(addBoardDeleteEvent);
 
 function addBoardDeleteEvent(btn) {
@@ -165,7 +165,7 @@ function addBoardDeleteEvent(btn) {
   });
 }
 
-// board edit
+// Add edit board event to every board edit button.
 boardEditBtn.forEach(addBoardEditEvent);
 
 function addBoardEditEvent(btn) {
@@ -175,13 +175,11 @@ function addBoardEditEvent(btn) {
   });
 }
 
-// updating lists
-
 // update board task count
 let boardTaskCount = document.querySelectorAll(".board-task-count");
-
 updateTaskCount();
 
+// updating task count of every board.
 function updateTaskCount() {
   boardTaskCount.forEach((counter, key) => {
     counter.innerHTML = String(
@@ -190,15 +188,17 @@ function updateTaskCount() {
   });
 }
 
+// updating different lists
 function updateLists() {
   boards = document.querySelectorAll(".board"); // updating boards list
+
   boardDeleteBtn = document.querySelectorAll(".board-header-util > .fa-trash"); // updating boardDeleteBtn list
   boardEditBtn = document.querySelectorAll(
     ".board-header-util > .fa-pen-to-square"
   ); // updating boardEditBtn list
 
-  editTaskBtn = document.querySelectorAll(".edit-task");
-  deleteTaskBtnList = document.querySelectorAll(".delete-task");
+  editTaskBtn = document.querySelectorAll(".edit-task"); // updating editTaskBtn list
+  deleteTaskBtnList = document.querySelectorAll(".delete-task"); // updating deleteTaskBtnList list
 
-  boardTaskCount = document.querySelectorAll(".board-task-count");
+  boardTaskCount = document.querySelectorAll(".board-task-count"); // updating task counter's list.
 }
